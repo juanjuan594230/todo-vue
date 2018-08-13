@@ -12,7 +12,7 @@ const baseConfig = {
   },
   output: {
     path: config.build.assetsRoot,
-    filename: '[name].js'
+    filename: '[name].[hash:8].js'
   },
   module: {
     rules: [
@@ -54,10 +54,7 @@ const baseConfig = {
         loader: 'babel-loader'
       }
     ]
-  },
-  plugins: [
-    new ExtractTextPlugin
-  ]
+  }
 }
 
 module.exports = baseConfig;

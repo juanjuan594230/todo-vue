@@ -3,8 +3,17 @@ const merge = require('webpack-merge');
 const HtmlPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const config = require('../config');
 
 const devConfig = {
+  entry: {
+    app: './src/main.js',
+    vendor: ['vue']
+  },
+  output: {
+    path: config.build.assetsRoot,
+    filename: '[name].[chunkhash:8].js'
+  },
   plugins: [
     // 允许创建一个在编译时可以配置的全局变量
     new webpack.DefinePlugin({
@@ -12,16 +21,25 @@ const devConfig = {
         NODE_ENV: '"production"'
       }
     }),
-    new HtmlPlugin()
+    new HtmlPlugin(),
+    new ExtractTextPlugin('styles.[contentHash:8].css'),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
+    }),
+    // 将webpack相关代码单独打包
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'runtime'
+    })
   ],
   module: {
     rules: [
       {
         test: /\.styl$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'postcss-loader',
+          // 编译后使用什么loader来提取css文件
+          fallback: 'style-loader',
+          // 使用什么loader去编译源文件，源文件为stylus
           use: [
-            'style-loader',
             'css-loader',
             {
               loader: 'postcss-loader',
