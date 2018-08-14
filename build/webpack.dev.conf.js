@@ -4,6 +4,7 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 
 const devConfig = {
+  mode: 'development',
   module: {
     rules: [
       {
@@ -38,9 +39,9 @@ const devConfig = {
       }
     }),
     new webpack.HotModuleReplacementPlugin(), // 启动webpack的模块热替换特性
-    new webpack.NoEmitOnErrorsPlugin()
+    // new webpack.NoEmitOnErrorsPlugin()  webpack4中去掉了
   ],
-  // 增强调试功能
+  // 增强调试功能  webpack4默认执行devtool
   devtool: "#cheap-module-eval-source-map"
 }
 

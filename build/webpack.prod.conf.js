@@ -5,9 +5,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const config = require('../config');
 
 const devConfig = {
+  mode: 'production',
   entry: {
-    app: './client/main.js',
-    vendor: ['vue']
+    app: './client/main.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -20,15 +20,23 @@ const devConfig = {
         NODE_ENV: '"production"'
       }
     }),
-    new ExtractTextPlugin('styles.[contentHash:8].css'),
-    new webpack.optimize.CommonsChunkPlugin({
+    new ExtractTextPlugin('styles.[md5:contenthash:hex:20].css'),
+    // webpack4中被废弃了 CommonsChunkPlugin
+    /* new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
     }),
     // 将webpack相关代码单独打包
     new webpack.optimize.CommonsChunkPlugin({
       name: 'runtime'
-    })
+    }) */
   ],
+  // webpack4打包公共文件 
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    },
+    runtimeChunk: true
+  },
   module: {
     rules: [
       {

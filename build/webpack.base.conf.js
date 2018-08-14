@@ -59,6 +59,13 @@ const baseConfig = {
       {
         test: /\.jsx$/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.(vue|js|jsx)$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+        // 预处理  使用真正的loader处理之前，先使用eslint-loader做预处理
+        enforce: 'pre'
       }
     ]
   },

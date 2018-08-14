@@ -16,7 +16,7 @@ import Todo from './views/todo/Todo.vue'
 export default {
   name: 'App',
   components: {
-    todoHeader, 
+    todoHeader,
     todoFooter,
     Todo
   }

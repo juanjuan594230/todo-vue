@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       states: ['all', 'actived', 'completed']
     }
@@ -28,18 +28,18 @@ export default {
     }
   },
   methods: {
-    toggleFilter(item) {
-      this.$emit('toggle', item);
+    toggleFilter (item) {
+      this.$emit('toggle', item)
     },
-    clearAllCompleted() {
-      this.$emit('clear');
+    clearAllCompleted () {
+      this.$emit('clear')
     }
   },
   computed: {
-    unFinishedToLength() {
+    unFinishedToLength () {
       return this.todos.filter((todo) => {
         return !todo.completed
-      }).length;
+      }).length
     }
   }
 }

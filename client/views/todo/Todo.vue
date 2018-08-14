@@ -19,35 +19,35 @@
 <script>
 import todoItem from './Item.vue'
 import tabs from './Tabs.vue'
-let id = 0;
+let id = 0
 export default {
-  data() {
+  data () {
     return {
       todos: [],
       filter: 'all'
     }
   },
   methods: {
-    addTodo(e) {
+    addTodo (e) {
       this.todos.unshift({
         id: id++,
         content: e.target.value.trim(),
         completed: false
-      });
-      e.target.value = '';
-    },
-    deleteTodo(id) {
-      const index = this.todos.findIndex((item) => {
-        return item.id === id;
       })
-      this.todos.splice(index, 1);
+      e.target.value = ''
     },
-    toggleFilter(state) {
-      this.filter = state;
+    deleteTodo (id) {
+      const index = this.todos.findIndex((item) => {
+        return item.id === id
+      })
+      this.todos.splice(index, 1)
     },
-    clearAllCompleted() {
+    toggleFilter (state) {
+      this.filter = state
+    },
+    clearAllCompleted () {
       this.todos = this.todos.filter((todo) => {
-        return !todo.completed;
+        return !todo.completed
       })
     }
   },
@@ -56,11 +56,11 @@ export default {
     tabs
   },
   computed: {
-    filteredTodos() {
+    filteredTodos () {
       if (this.filter === 'all') {
-        return this.todos;
+        return this.todos
       }
-      const completed = this.filter === 'completed' ? true : false;
+      const completed = this.filter === 'completed'
       return this.todos.filter((todo) => {
         return completed === todo.completed
       })
