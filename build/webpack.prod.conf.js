@@ -1,13 +1,12 @@
 const baseConfig = require('./webpack.base.conf.js');
 const merge = require('webpack-merge');
-const HtmlPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const config = require('../config');
 
 const devConfig = {
   entry: {
-    app: './src/main.js',
+    app: './client/main.js',
     vendor: ['vue']
   },
   output: {
@@ -21,7 +20,6 @@ const devConfig = {
         NODE_ENV: '"production"'
       }
     }),
-    new HtmlPlugin(),
     new ExtractTextPlugin('styles.[contentHash:8].css'),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'

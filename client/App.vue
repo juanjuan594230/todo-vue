@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import todoHeader from './todo/Header.vue'
-import todoFooter from './todo/Footer.jsx'
-import Todo from './todo/Todo.vue'
+import todoHeader from './layout/Header.vue'
+import todoFooter from './layout/Footer.jsx'
+import Todo from './views/todo/Todo.vue'
 export default {
   name: 'App',
   components: {

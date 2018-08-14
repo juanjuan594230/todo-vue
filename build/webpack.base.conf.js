@@ -1,5 +1,9 @@
 const path = require('path');  // nodejs 内置
 const config = require('../config');
+const HtmlPlugin = require('html-webpack-plugin');
+const createVueLoaderConfig = require('./vue-loader.config.js');
+
+const isDev = process.env.NODE_ENV === 'development'
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir);
@@ -8,7 +12,7 @@ function resolve(dir) {
 const baseConfig = {
   context: path.join(__dirname, '../'), // webpack编译的基础目录，入口起点会相对于此目录查找 __dirname  当前执行文件所在目录的完整目录名 ...todo-vue/build
   entry: {
-    app: './src/main.js'
+    app: './client/main.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -20,11 +24,14 @@ const baseConfig = {
         test: /\.(js)$/,
         loader: 'babel-loader',
         // 包含
-        include: [resolve('src'), resolve('node_modules/webpack-dev-server/client')]
+        include: [resolve('src'), resolve('node_modules/webpack-dev-server/client')],
+        // 忽略
+        exclude: /node_modules/
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        options: createVueLoaderConfig(isDev)
       },
       {
         test: /\.css$/,
@@ -38,7 +45,7 @@ const baseConfig = {
         loader: 'url-loader',
         options: {
           limit: 1024,
-          name: 'static/[name].[ext]'
+          name: 'resource/[path]/[name].[ext]'
         }
       },
       {
@@ -54,7 +61,10 @@ const baseConfig = {
         loader: 'babel-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlPlugin()
+  ]
 }
 
 module.exports = baseConfig;

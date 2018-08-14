@@ -1,6 +1,6 @@
 const baseConfig = require('./webpack.base.conf.js');
+// 合并不同的webpack config
 const merge = require('webpack-merge');
-const HtmlPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 const devConfig = {
@@ -9,7 +9,8 @@ const devConfig = {
       {
         test: /\.styl$/,
         use: [
-          'style-loader',
+          // style-loader不能开启热重载，需要使用vue-style-loader
+          'vue-style-loader',
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -36,7 +37,6 @@ const devConfig = {
         NODE_ENV: '"development"'
       }
     }),
-    new HtmlPlugin(),
     new webpack.HotModuleReplacementPlugin(), // 启动webpack的模块热替换特性
     new webpack.NoEmitOnErrorsPlugin()
   ],

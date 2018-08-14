@@ -61,10 +61,10 @@ export default {
   -webkit-appearance: none;
   outline: none;
   &:after {
-    content: url('../assets/image/round.svg');
+    content: url('../../assets/image/round.svg');
   }
   &:checked:after {
-    content: url('../assets/image/done.svg');
+    content: url('../../assets/image/done.svg');
   }
 }
 .destory {
