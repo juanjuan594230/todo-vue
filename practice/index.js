@@ -1,0 +1,10 @@
+// import './instance';
+// import './lifecycle';
+// import './dataBinding';
+// import './computed';
+// import './directive';
+// import './component/define';
+// import './component/extend';
+// import './component/v-model';
+// import './component/feature';
+import './render';

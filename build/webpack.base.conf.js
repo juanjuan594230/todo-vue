@@ -1,11 +1,11 @@
-const path = require('path');  // nodejs 内置
+const path = require('path'); // nodejs 内置
 const config = require('../config');
 const HtmlPlugin = require('html-webpack-plugin');
 const createVueLoaderConfig = require('./vue-loader.config.js');
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === 'development';
 
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, '..', dir);
 }
 
@@ -20,6 +20,13 @@ const baseConfig = {
   },
   module: {
     rules: [
+      {
+        test: /\.(vue|js|jsx)$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+        // 预处理  使用真正的loader处理之前，先使用eslint-loader做预处理
+        enforce: 'pre'
+      },
       {
         test: /\.(js)$/,
         loader: 'babel-loader',
@@ -59,19 +66,15 @@ const baseConfig = {
       {
         test: /\.jsx$/,
         loader: 'babel-loader'
-      },
-      {
-        test: /\.(vue|js|jsx)$/,
-        loader: 'eslint-loader',
-        exclude: /node_modules/,
-        // 预处理  使用真正的loader处理之前，先使用eslint-loader做预处理
-        enforce: 'pre'
       }
     ]
   },
   plugins: [
-    new HtmlPlugin()
+    new HtmlPlugin({
+      // 会以template.html为模板生成html文件
+      template: path.join(__dirname, 'template.html')
+    })
   ]
-}
+};
 
 module.exports = baseConfig;
