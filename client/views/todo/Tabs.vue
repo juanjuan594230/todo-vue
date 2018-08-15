@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       states: ['all', 'actived', 'completed']
-    }
+    };
   },
   props: {
     filter: {
@@ -29,20 +29,20 @@ export default {
   },
   methods: {
     toggleFilter (item) {
-      this.$emit('toggle', item)
+      this.$emit('toggle', item);
     },
     clearAllCompleted () {
-      this.$emit('clear')
+      this.$emit('clear');
     }
   },
   computed: {
     unFinishedToLength () {
       return this.todos.filter((todo) => {
-        return !todo.completed
-      }).length
+        return !todo.completed;
+      }).length;
     }
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>

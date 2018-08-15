@@ -1,11 +1,11 @@
 <template>
   <section class="real-app">
-    <input type="text" 
-           class="add-input" 
-           autofocus placeholder="接下来要做什么？" 
+    <input type="text"
+           class="add-input"
+           autofocus placeholder="接下来要做什么？"
            v-on:keyup.enter="addTodo"
     >
-    <todo-item 
+    <todo-item
       v-for="todo in filteredTodos"
       :todo="todo"
       :key="todo.id"
@@ -17,15 +17,16 @@
 </template>
 
 <script>
-import todoItem from './Item.vue'
-import tabs from './Tabs.vue'
-let id = 0
+import todoItem from './Item.vue';
+import tabs from './Tabs.vue';
+let id = 0;
 export default {
+  name: 'Todo',
   data () {
     return {
       todos: [],
       filter: 'all'
-    }
+    };
   },
   methods: {
     addTodo (e) {
@@ -33,22 +34,22 @@ export default {
         id: id++,
         content: e.target.value.trim(),
         completed: false
-      })
-      e.target.value = ''
+      });
+      e.target.value = '';
     },
     deleteTodo (id) {
       const index = this.todos.findIndex((item) => {
-        return item.id === id
-      })
-      this.todos.splice(index, 1)
+        return item.id === id;
+      });
+      this.todos.splice(index, 1);
     },
     toggleFilter (state) {
-      this.filter = state
+      this.filter = state;
     },
     clearAllCompleted () {
       this.todos = this.todos.filter((todo) => {
-        return !todo.completed
-      })
+        return !todo.completed;
+      });
     }
   },
   components: {
@@ -58,15 +59,15 @@ export default {
   computed: {
     filteredTodos () {
       if (this.filter === 'all') {
-        return this.todos
+        return this.todos;
       }
-      const completed = this.filter === 'completed'
+      const completed = this.filter === 'completed';
       return this.todos.filter((todo) => {
-        return completed === todo.completed
-      })
+        return completed === todo.completed;
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -81,12 +82,12 @@ export default {
   width 100%
   font-size 24px
   font-family inherit
-  font-weight inherit 
+  font-weight inherit
   line-height 1.4rem
-  outline none 
+  outline none
   box-sizing border-box
   padding 16px 16px 16px 60px
-  border none 
+  border none
   box-shadow inset 0 -2px 1px rgba(0, 0, 0, 0.5)
 }
 </style>

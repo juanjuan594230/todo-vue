@@ -1,11 +1,10 @@
-'use strict'
-import Vue from 'vue'
-import App from './App.vue'
-import './assets/styles/global.styl'
-
-const root = document.createElement('div')
-document.body.appendChild(root)
+'use strict';
+import Vue from 'vue';
+import App from './App.vue';
+import './assets/styles/global.styl';
+import router from './router';
 
 new Vue({
+  router,
   render: (h) => h(App)
-}).$mount(root)
+}).$mount('#root');

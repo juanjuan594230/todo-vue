@@ -26,9 +26,9 @@ const devConfig = {
   },
   devServer: {
     port: 8000,
-    host: '0.0.0.0',  // 外部服务器可访问（localhost、ip均可）
-    overlay: true,   // 出现编译错误时，会显示全屏覆盖层
-    historyApiFallback: true,  // 任意的404响应都需要被替代为index.html
+    host: '0.0.0.0', // 外部服务器可访问（localhost、ip均可）
+    overlay: true, // 出现编译错误时，会显示全屏覆盖层
+    historyApiFallback: true // 任意的404响应都需要被替代为index.html
     // hot: true // 启动webpack的模块热替换特性
   },
   plugins: [
@@ -38,11 +38,11 @@ const devConfig = {
         NODE_ENV: '"development"'
       }
     }),
-    new webpack.HotModuleReplacementPlugin(), // 启动webpack的模块热替换特性
+    new webpack.HotModuleReplacementPlugin() // 启动webpack的模块热替换特性
     // new webpack.NoEmitOnErrorsPlugin()  webpack4中去掉了
   ],
   // 增强调试功能  webpack4默认执行devtool
-  devtool: "#cheap-module-eval-source-map"
-}
+  devtool: '#cheap-module-eval-source-map'
+};
 
 module.exports = merge(baseConfig, devConfig);

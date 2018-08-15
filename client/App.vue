@@ -3,24 +3,29 @@
     <div class="cover"></div>
     <div class="content">
       <todo-header></todo-header>
-      <Todo></Todo>
+      <router-link to="/app">app</router-link>
+      <router-link to="/login">login</router-link>
+      <!-- <Todo></Todo> -->
+      <router-view/>
       <todo-footer></todo-footer>
     </div>
   </div>
 </template>
 
 <script>
-import todoHeader from './layout/Header.vue'
-import todoFooter from './layout/Footer.jsx'
-import Todo from './views/todo/Todo.vue'
+import todoHeader from './layout/Header.vue';
+import todoFooter from './layout/Footer.jsx';
+// import Todo from './views/todo/Todo.vue';
+// import Login from './views/login/login.vue';
 export default {
   name: 'App',
   components: {
     todoHeader,
-    todoFooter,
-    Todo
+    todoFooter
+    // Todo,
+    // Login
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>
