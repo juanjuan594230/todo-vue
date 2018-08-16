@@ -13,6 +13,8 @@
       >
     </todo-item>
     <tabs :filter="filter" :todos="todos" @toggle="toggleFilter" @clear="clearAllCompleted"></tabs>
+    <!-- 路由嵌套 -->
+    <!-- <router-view></router-view> -->
   </section>
 </template>
 
@@ -22,6 +24,23 @@ import tabs from './Tabs.vue';
 let id = 0;
 export default {
   name: 'Todo',
+  // 取代$route
+  // props: ['id'],
+  // z组件内导航守卫
+  // beforeRouteEnter 中拿不到this，因为组件还没有被创建，可以在next中传入一个回调获取组件vue实例
+  /* beforeRouteEnter (to, from, next) {
+    console.log('enter');
+    next();
+  },
+  // app/:id  app/123 -> app/456 被触发，组件复用，参数不同时被触发
+  beforeRouteUpdate (to, from, next) {
+    console.log('update');
+    next();
+  },
+  beforeRouteLeave (to, from, next) {
+    console.log('leave');
+    next();
+  }, */
   data () {
     return {
       todos: [],

@@ -1,17 +1,49 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Todo from '../views/todo/Todo.vue';
-import Login from '../views/login/Login.vue';
+// import Todo from '../views/todo/Todo.vue';
+// import Login from '../views/login/Login.vue';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [{
+    // 路由组件传参
+    // path: '/app/:id',
+    // props: true,
     path: '/app',
-    component: Todo
+    // component: Todo,
+    // 异步组件
+    component: () => {
+      return import('../views/todo/Todo.vue');
+    },
+    // 命名视图
+    // components: {
+    //   default: A, // 匹配默认router-view
+    //   sideBar: SideComp // 匹配name为SideComp的router-view
+    // },
+    // 路由独享钩子
+    /* beforeEnter: (to, from, next) => {
+      console.log('路由独享钩子');
+      next();
+    }, */
+    name: 'app' // 路由命名
+    // 元信息
+    // meta: {
+    //   title: 'app',
+    //   description: 'todo'
+    // }
+    // 路由嵌套
+    // children: [
+    //   {
+    //     path: 'test',
+    //     component: Login
+    //   }
+    // ]
   }, {
     path: '/login',
-    component: Login
+    component: () => {
+      return import('../views/login/Login.vue');
+    }
   }, {
     path: '/',
     redirect: '/app'
