@@ -8,14 +8,14 @@ export default {
     }
   },
   mutations: {
-    upperName (state) {
+    upperNameBbb (state) {
       return state.name.toUpperCase();
     }
   },
   actions: {
     upperNameAsync (context) {
       setTimeout(() => {
-        context.submit('upperName');
+        context.commit('upperNameBbb');
       }, 1000);
     }
   }

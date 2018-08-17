@@ -4,10 +4,10 @@
     <div class="content">
       <todo-header></todo-header>
       <p>{{counter}}</p>
-      <p>{{moduleA}}</p>
+      <!-- <p>{{moduleA}}</p>
       <ul>
         <li v-for="(item, index) in nameArrayAaa" :key="index">{{item}}</li>
-      </ul>
+      </ul> -->
       <ul>
         <li v-for="item in unTodos" :key="item.id">{{item.desc}}</li>
       </ul>
@@ -35,17 +35,18 @@ export default {
     todoFooter
   },
   mounted () {
-    console.log(this.$store);
-    /* setTimeout(() => {
+    /* console.log(this.$store);
+    setInterval(() => {
       this.increment();
-    }, 1000);
-    this.updateCount({step: 999}); */
+    }, 1000); */
+    // this.updateCount({step: 999});
     // this.updateCountSync({step: 999});
-    /* this.actionA({step: 1000}).then(() => {
+    this.actionA({step: 1000}).then(() => {
       console.log('done');
-    }); */
+    });
+    // 分模块
     // this.upperName();
-    this.upperNameAsync();
+    // this.upperNameAsync();
   },
   methods: {
     // 组件内访问mutations
@@ -62,8 +63,8 @@ export default {
       // 将this.increment 映射为 this.$store.mutations.commit('increment')
       'increment': 'increment',
       // 支持传递参数 将this.increment(obj) 映射为 this.$store.mutations.commit('increment', obj)
-      'updateCount': 'updateCount',
-      'upperName': 'a/upperName'
+      'updateCount': 'updateCount'
+      // 'upperName': 'a/upperName'
     }),
     // mudule
     /* upperName () {
@@ -78,8 +79,8 @@ export default {
     // 2、mapActions
     ...mapActions({
       'updateCountSync': 'updateCountSync',
-      'actionA': 'actionA',
-      'upperNameAsync': 'a/upperNameAsync'
+      'actionA': 'actionA'
+      // 'upperNameAsync': 'a/upperNameAsync'
     })
     // module
     /* upperNameAsync () {
@@ -99,8 +100,8 @@ export default {
       // 相当于 state => state.count
       // 'counter': 'count'
       // 那么同理可以这样写
-      counter: state => state.count,
-      moduleA: state => state.a.name
+      counter: state => state.count
+      // moduleA: state => state.a.name
     }),
     // 组件内访问getter
     // 1: this.$store.属性
@@ -114,8 +115,8 @@ export default {
     //  3: mapGetters
     ...mapGetters({
       // 将this.unTodos 映射为 this.$store.getters.untodo
-      unTodos: 'unTodo',
-      nameArrayAaa: 'a/nameArrayAaa'
+      unTodos: 'unTodo'
+      // nameArrayAaa: 'a/nameArrayAaa'
     })
     // module
     /* nameArrayAaa () {

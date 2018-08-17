@@ -29,6 +29,30 @@ router.afterEach((to, from) => {
   console.log('after each invoked');
 }); */
 
+// 动态注册模块
+/* store.registerModule('c', {
+  state: {
+    name: 'ccc'
+  }
+}); */
+
+// watch  监听第一个参数的返回值
+/* store.watch(state => state.count, (newVal) => {
+  console.log('new count watched', newVal);
+}); */
+
+// subscribe 监听所有的mutations调用
+/* store.subscribe((mutation, state) => {
+  console.log(mutation.type);
+  console.log(mutation.payload);
+}); */
+
+// 监听所有的actions调用
+/* store.subscribeAction((action, state) => {
+  console.log(action.type);
+  console.log(action.payload);
+}); */
+
 new Vue({
   router,
   store,

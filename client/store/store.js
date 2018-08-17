@@ -4,8 +4,8 @@ import defaultState from './state/state';
 import mutations from './mutations/mutations';
 import getters from './getters/getters';
 import actions from './actions/actions';
-import moduleA from './modules/modulea';
-import moduleB from './modules/moduleb';
+// import moduleA from './modules/modulea';
+// import moduleB from './modules/moduleb';
 
 Vue.use(Vuex);
 
@@ -28,43 +28,14 @@ export default new Vuex.Store({
   state: defaultState,
   mutations,
   getters,
-  actions,
-  modules: {
+  actions
+  /* plugins: [
+    (store) => {
+      // 做一些操作
+    }
+  ] */
+  /* modules: {
     a: moduleA,
     b: moduleB
-  }
-  // 分模块
-  // 组件内 this.$store.state.a.text
-  // mapState({
-  //   a: (state) => {
-  //     return state.a.text
-  //   }
-  // })
-  /* methods: {
-    ...mapMutations(['a/updateText'])
-  }
-  this[a/updateText]; */
-  /* mudules: {
-    a: {
-      namespaced: true,
-      state: {
-        text: 1
-      },
-      mutations: {
-        updateText (state, text) {
-          state.text = text;
-        }
-      },
-      getters: {
-        textPlus (state) {
-          return state.text + 1;
-        }
-      }
-    },
-    b: {
-      state: {
-        text: 2
-      }
-    }
   } */
 });

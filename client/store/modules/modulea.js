@@ -9,9 +9,17 @@ export default {
   /* getters: {
     'a/nameArrayAaa': fn
   } */
+  /* state: {
+    a: {
+      name: 'aaa'
+    }
+    // 其余全局的state
+  } */
   getters: {
-    nameArrayAaa (state) {
-      return state.name.split('');
+    // rootState是全局的state，state为模块a内的state
+    nameArrayAaa (state, getters, rootState) {
+      const _str = state.name + rootState.count;
+      return _str.split('');
     }
   },
   mutations: {
@@ -20,10 +28,17 @@ export default {
     }
   },
   actions: {
+    // 局部context {state, commit, rootSatet}
     upperNameAsync (context) {
       setTimeout(() => {
         context.commit('upperName');
       }, 1000);
     }
+    // 如何调用全局的mutations
+    // context.commit('updateCount', {root: true})
+    // 如何调用模块间的mutations 模块b没有添加namespaced
+    // context.commit('upperNameBbb', {root: true})
+    // 如何调用模块间的mutations 模块b添加namespaced
+    // context.commit('b/upperNameBbb', {root: true})
   }
 };
