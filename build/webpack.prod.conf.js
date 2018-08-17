@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const config = require('../config');
+const VueClinetPlugin = require('vue-server-renderer/client-plugin');
 
 const devConfig = {
   mode: 'production',
@@ -21,6 +22,7 @@ const devConfig = {
       }
     }),
     new ExtractTextPlugin('styles.[md5:contenthash:hex:20].css'),
+    new VueClinetPlugin()
     // webpack4中被废弃了 CommonsChunkPlugin
     /* new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
@@ -30,7 +32,7 @@ const devConfig = {
       name: 'runtime'
     }) */
   ],
-  // webpack4打包公共文件 
+  // webpack4打包公共文件
   optimization: {
     splitChunks: {
       chunks: 'all'

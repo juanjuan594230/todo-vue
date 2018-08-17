@@ -2,6 +2,7 @@ const baseConfig = require('./webpack.base.conf.js');
 // 合并不同的webpack config
 const merge = require('webpack-merge');
 const webpack = require('webpack');
+const VueClinetPlugin = require('vue-server-renderer/client-plugin');
 
 const devConfig = {
   mode: 'development',
@@ -38,6 +39,8 @@ const devConfig = {
         NODE_ENV: '"development"'
       }
     }),
+    // 将客户端的整个输出，构建为单个JSON文件，默认文件名为'vue-ssr-client-manifest.json'
+    new VueClinetPlugin(),
     new webpack.HotModuleReplacementPlugin() // 启动webpack的模块热替换特性
     // new webpack.NoEmitOnErrorsPlugin()  webpack4中去掉了
   ],
