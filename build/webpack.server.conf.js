@@ -11,7 +11,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const devConfig = {
   // 允许webpack以node适用方式处理动态导入，编译vue组件时，vue-loader输出面向服务器代码
   target: 'node',
-  mode: 'development',
+  mode: isDev ? 'development' : 'production',
   entry: path.resolve(__dirname, '../client/server-entry.js'),
   // json文件
   output: {
@@ -24,21 +24,6 @@ const devConfig = {
   externals: Object.keys(require('../package.json').dependencies),
   module: {
     rules: [
-      // {
-      //   test: /\.styl$/,
-      //   use: [
-      //     // style-loader不能开启热重载，需要使用vue-style-loader
-      //     'vue-style-loader',
-      //     'css-loader',
-      //     {
-      //       loader: 'postcss-loader',
-      //       options: {
-      //         sourceMap: true
-      //       }
-      //     },
-      //     'stylus-loader'
-      //   ]
-      // }
       {
         test: /\.styl$/,
         use: ExtractTextPlugin.extract({
@@ -62,14 +47,11 @@ const devConfig = {
   plugins: [
     // 允许创建一个在编译时可以配置的全局变量
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: isDev ? '"development"' : '"production"'
-      },
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.VUE_ENV': '"server"'
     }),
     new ExtractTextPlugin('styles.[md5:contenthash:hex:20].css'),
-    // 将服务器的整个输出构建为单个JSON文件的插件
+    // 将服务器的整个输出构建为单个JSON文件的插件 vue-ssr-server-bundle.json
     new VueServerPlugin()
   ],
   // 增强调试功能  webpack4默认执行devtool

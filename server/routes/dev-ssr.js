@@ -41,21 +41,23 @@ serverCompiler.watch({}, (err, status) => {
 
 // 根据打包的文件，进行服务端渲染
 const handleSSR = async (ctx) => {
-  if (bundle) {
+  if (!bundle) {
     ctx.body = 'wait a moment';
     return;
   }
   // 获取客户端打包的js文件，通过请求
   const clientManifestResp = await axios.get(
-    'http://127.0.0.1:8000/vue-ssr-client-manifest.json'
+    'http://127.0.0.1:8000/public/vue-ssr-client-manifest.json'
   );
   const clientManifest = clientManifestResp.data;
   // bundle存在 SSR，bundle是不完整的HTML代码，比如没有head,所以需要一个模板
   const template = fs.readFileSync(
-    path.join(__dirname, '../server.template.ejs')
+    path.join(__dirname, '../server.template.ejs'),
+    'utf-8'
   );
-  // 创建一个renderRenderer的实例
+  // 创建一个renderRenderer的实例,执行服务端渲染
   const renderer = VueServerRenderer.createBundleRenderer(bundle, {
+    // 不自动注入
     inject: false,
     // 自动生成一个带有script标签的js文件引用的字符串，添加到bundle中
     clientManifest
@@ -65,6 +67,7 @@ const handleSSR = async (ctx) => {
 };
 
 const router = new Router();
+// 所有的请求都通过router处理
 router.get('*', handleSSR);
 
 module.exports = router;

@@ -30,6 +30,9 @@ import todoFooter from './layout/Footer.jsx';
 import {mapState, mapGetters, mapMutations, mapActions} from 'vuex';
 export default {
   name: 'App',
+  metaInfo: {
+    title: 'renyujuan\'s Todo App'
+  },
   components: {
     todoHeader,
     todoFooter

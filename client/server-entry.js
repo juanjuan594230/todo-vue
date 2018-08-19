@@ -1,8 +1,8 @@
-import createApp from './create-app';
+import createAppObj from './create-app';
 
 export default (context) => {
   return new Promise((resolve, reject) => {
-    const { app, router } = createApp();
+    const { app, router } = createAppObj.createApp();
     // ??? 推进路由记录
     router.push(context.url);
     router.onReady(() => {
@@ -10,6 +10,7 @@ export default (context) => {
       if (!matchedComponents.length) {
         return reject(new Error('no matched'));
       }
+      context.meta = app.$meta();
       resolve(app);
     });
   });

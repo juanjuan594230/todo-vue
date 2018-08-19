@@ -1,6 +1,8 @@
 const baseConfig = require('./webpack.base.conf.js');
 // 合并不同的webpack config
 const merge = require('webpack-merge');
+const HtmlPlugin = require('html-webpack-plugin');
+const path = require('path');
 const webpack = require('webpack');
 const VueClinetPlugin = require('vue-server-renderer/client-plugin');
 
@@ -29,8 +31,11 @@ const devConfig = {
     port: 8000,
     host: '0.0.0.0', // 外部服务器可访问（localhost、ip均可）
     overlay: true, // 出现编译错误时，会显示全屏覆盖层
-    historyApiFallback: true // 任意的404响应都需要被替代为index.html
-    // hot: true // 启动webpack的模块热替换特性
+    historyApiFallback: {
+      index: '/public/index.html'
+    }, // 任意的404响应都需要被替代为index.html
+    // historyApiFallback: true,
+    hot: true // 启动webpack的模块热替换特性
   },
   plugins: [
     // 允许创建一个在编译时可以配置的全局变量
@@ -38,6 +43,10 @@ const devConfig = {
       'process.env': {
         NODE_ENV: '"development"'
       }
+    }),
+    new HtmlPlugin({
+      // 会以template.html为模板生成html文件
+      template: path.join(__dirname, 'template.html')
     }),
     // 将客户端的整个输出，构建为单个JSON文件，默认文件名为'vue-ssr-client-manifest.json'
     new VueClinetPlugin(),

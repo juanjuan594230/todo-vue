@@ -24,6 +24,9 @@ import tabs from './Tabs.vue';
 let id = 0;
 export default {
   name: 'Todo',
+  metaInfo: {
+    title: 'The Todo App'
+  },
   // 取代$route
   // props: ['id'],
   // z组件内导航守卫

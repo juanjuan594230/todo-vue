@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import Todo from '../views/todo/Todo.vue';
+import Todo from '../views/todo/Todo.vue';
 // import Login from '../views/login/Login.vue';
 
 Vue.use(Router);
@@ -11,11 +11,11 @@ export default new Router({
     // path: '/app/:id',
     // props: true,
     path: '/app',
-    // component: Todo,
+    component: Todo,
     // 异步组件
-    component: () => {
+    /* component: () => {
       return import('../views/todo/Todo.vue');
-    },
+    }, */
     // 命名视图
     // components: {
     //   default: A, // 匹配默认router-view

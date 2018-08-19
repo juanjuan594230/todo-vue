@@ -1,6 +1,4 @@
 const path = require('path'); // nodejs 内置
-const config = require('../config');
-const HtmlPlugin = require('html-webpack-plugin');
 const createVueLoaderConfig = require('./vue-loader.config.js');
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -10,13 +8,15 @@ function resolve (dir) {
 }
 
 const baseConfig = {
-  context: path.join(__dirname, '../'), // webpack编译的基础目录，入口起点会相对于此目录查找 __dirname  当前执行文件所在目录的完整目录名 ...todo-vue/build
-  entry: {
-    app: './client/main.js'
-  },
+  target: 'web',
+  // context: path.join(__dirname, '../'), // webpack编译的基础目录，入口起点会相对于此目录查找 __dirname  当前执行文件所在目录的完整目录名 ...todo-vue/build
+  entry: path.join(__dirname, '../client/client-entry.js'),
   output: {
-    path: config.build.assetsRoot,
-    filename: '[name].[hash:8].js'
+    path: path.join(__dirname, '../public'),
+    filename: '[name].[hash:8].js',
+    publicPath: 'http://127.0.0.1:8000/public/'
+    // path: path.join(__dirname, '../public'),
+    // publicPath: 'http://127.0.0.1:8000/public/'
   },
   module: {
     rules: [
@@ -68,13 +68,7 @@ const baseConfig = {
         loader: 'babel-loader'
       }
     ]
-  },
-  plugins: [
-    new HtmlPlugin({
-      // 会以template.html为模板生成html文件
-      template: path.join(__dirname, 'template.html')
-    })
-  ]
+  }
 };
 
 module.exports = baseConfig;
