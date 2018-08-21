@@ -7,7 +7,7 @@ module.exports = function(isDev) {
     cssModules: {
       localIdentName: isDev ? '[path].[name].[hash:base64:5]' : '[hash:base64:5]',
       camelCase: true
-    },  // 模块化和组合css的流行系统
+    } // 模块化和组合css的流行系统
     // hotReload: false   // 关闭热重载  默认不需要设置，会根据环境变量生成
   }
 }

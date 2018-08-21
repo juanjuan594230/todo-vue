@@ -35,7 +35,8 @@ const devConfig = {
       index: '/public/index.html'
     }, // 任意的404响应都需要被替代为index.html
     // historyApiFallback: true,
-    hot: true // 启动webpack的模块热替换特性
+    hot: true, // 启动webpack的模块热替换特性
+    headers: { 'Access-Control-Allow-Origin': '*' }
   },
   plugins: [
     // 允许创建一个在编译时可以配置的全局变量

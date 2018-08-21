@@ -1,7 +1,22 @@
 <template>
   <section class="real-app">
+    <div class="tab-container">
+      <Tabs :value="tabValue"  @change="handleTabChange">
+        <tab label="tab1" index="1">
+          <span>tab1 content{{inputContent}}</span>
+        </tab>
+        <tab index="2">
+          <span slot="label" style="color:red;">tab2</span>
+          <span>tab2 content</span>
+        </tab>
+        <tab label="tab3" index="3">
+          <span>tab3 content</span>
+        </tab>
+      </Tabs>
+    </div>
     <input type="text"
            class="add-input"
+           v-model="inputContent"
            autofocus placeholder="接下来要做什么？"
            v-on:keyup.enter="addTodo"
     >
@@ -12,15 +27,15 @@
       @del="deleteTodo"
       >
     </todo-item>
-    <tabs :filter="filter" :todos="todos" @toggle="toggleFilter" @clear="clearAllCompleted"></tabs>
+    <helper :filter="filter" :todos="todos" @toggle="toggleFilter" @clear="clearAllCompleted"></helper>
     <!-- 路由嵌套 -->
     <!-- <router-view></router-view> -->
   </section>
 </template>
 
 <script>
-import todoItem from './Item.vue';
-import tabs from './Tabs.vue';
+import TodoItem from './Item.vue';
+import Helper from './Helper.vue';
 let id = 0;
 export default {
   name: 'Todo',
@@ -47,7 +62,9 @@ export default {
   data () {
     return {
       todos: [],
-      filter: 'all'
+      filter: 'all',
+      tabValue: '1',
+      inputContent: ''
     };
   },
   methods: {
@@ -72,11 +89,14 @@ export default {
       this.todos = this.todos.filter((todo) => {
         return !todo.completed;
       });
+    },
+    handleTabChange (value) {
+      this.tabValue = value;
     }
   },
   components: {
-    todoItem,
-    tabs
+    TodoItem,
+    Helper
   },
   computed: {
     filteredTodos () {
@@ -111,6 +131,10 @@ export default {
   padding 16px 16px 16px 60px
   border none
   box-shadow inset 0 -2px 1px rgba(0, 0, 0, 0.5)
+}
+.tab-container {
+  background-color #fff
+  padding 0 15px
 }
 </style>
 

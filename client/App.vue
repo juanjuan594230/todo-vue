@@ -10,6 +10,8 @@
       <transition name="fade">
         <router-view/>
       </transition>
+      <!-- <Notification content="test notify"></Notification> -->
+      <button @click="notify"> add notify</button>
       <todo-footer></todo-footer>
     </div>
   </div>
@@ -26,6 +28,24 @@ export default {
   components: {
     todoHeader,
     todoFooter
+  },
+  mounted () {
+    /* this.$notify({
+      content: 'test notify',
+      btn: '关闭'
+    });
+    this.$notify({
+      content: 'test test',
+      btn: '哈哈'
+    }); */
+  },
+  methods: {
+    notify () {
+      this.$notify({
+        content: 'test',
+        btn: 'close'
+      });
+    }
   }
 };
 </script>
