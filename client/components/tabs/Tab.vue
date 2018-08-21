@@ -4,12 +4,15 @@ export default {
   props: {
     index: {
       required: true,
-      type: [String, Number]
+      type: [Number, String]
     },
     label: {
       type: String,
       default: 'tab'
     }
+  },
+  mounted () {
+    this.$parent.panes.push(this);
   },
   computed: {
     active () {
@@ -32,9 +35,6 @@ export default {
         {tab}
       </li>
     );
-  },
-  mounted () {
-    this.$parent.panes.push(this);
   }
 };
 </script>

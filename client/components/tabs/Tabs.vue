@@ -1,5 +1,6 @@
 <script>
 import TabContainer from './tab-container.vue';
+
 export default {
   name: 'Tabs',
   components: {
@@ -18,8 +19,8 @@ export default {
   },
   render () {
     return (
-      <div class="tabs">
-        <ul class="tabs-header">
+      <div class='tabs'>
+        <ul class='tabs-header'>
           {this.$slots.default}
         </ul>
         <tab-container panes={this.panes}></tab-container>
@@ -27,8 +28,8 @@ export default {
     );
   },
   methods: {
-    onChange (value) {
-      this.$emit('change', value);
+    onChange (index) {
+      this.$emit('change', index);
     }
   }
 };

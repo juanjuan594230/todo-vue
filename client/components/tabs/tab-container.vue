@@ -1,6 +1,5 @@
 <script>
 export default {
-  name: 'TabContainer',
   props: {
     panes: {
       type: Array,
@@ -8,7 +7,7 @@ export default {
     }
   },
   render () {
-    const contents = this.panes.map((pane) => {
+    const contents = this.panes.map(pane => {
       return pane.active ? pane.$slots.default : null;
     });
     return (

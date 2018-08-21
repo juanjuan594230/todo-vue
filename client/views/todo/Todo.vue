@@ -1,25 +1,14 @@
 <template>
   <section class="real-app">
     <div class="tab-container">
-      <Tabs :value="tabValue"  @change="handleTabChange">
-        <tab label="tab1" index="1">
-          <span>tab1 content{{inputContent}}</span>
-        </tab>
-        <tab index="2">
-          <span slot="label" style="color:red;">tab2</span>
-          <span>tab2 content</span>
-        </tab>
-        <tab label="tab3" index="3">
-          <span>tab3 content</span>
-        </tab>
+      <Tabs :value="filter"  @change="handleTabChange">
+        <tab :label="tab" :index="tab" v-for="tab in states" :key="tab"></tab>
       </Tabs>
     </div>
     <input type="text"
            class="add-input"
-           v-model="inputContent"
            autofocus placeholder="接下来要做什么？"
-           v-on:keyup.enter="addTodo"
-    >
+           v-on:keyup.enter="addTodo" />
     <todo-item
       v-for="todo in filteredTodos"
       :todo="todo"
@@ -27,7 +16,7 @@
       @del="deleteTodo"
       >
     </todo-item>
-    <helper :filter="filter" :todos="todos" @toggle="toggleFilter" @clear="clearAllCompleted"></helper>
+    <helper :filter="filter" :todos="todos" @clear="clearAllCompleted"></helper>
     <!-- 路由嵌套 -->
     <!-- <router-view></router-view> -->
   </section>
@@ -63,8 +52,7 @@ export default {
     return {
       todos: [],
       filter: 'all',
-      tabValue: '1',
-      inputContent: ''
+      states: ['all', 'actived', 'completed']
     };
   },
   methods: {
@@ -74,6 +62,7 @@ export default {
         content: e.target.value.trim(),
         completed: false
       });
+      console.log(e.target.value);
       e.target.value = '';
     },
     deleteTodo (id) {
@@ -82,16 +71,13 @@ export default {
       });
       this.todos.splice(index, 1);
     },
-    toggleFilter (state) {
-      this.filter = state;
-    },
     clearAllCompleted () {
       this.todos = this.todos.filter((todo) => {
         return !todo.completed;
       });
     },
     handleTabChange (value) {
-      this.tabValue = value;
+      this.filter = value;
     }
   },
   components: {
