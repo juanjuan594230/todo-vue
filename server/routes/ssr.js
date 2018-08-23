@@ -26,13 +26,13 @@ pageRouter.get('*', handleSSR);
 
 module.exports = pageRouter; */
 
-const Router = require('koa-router')
-const path = require('path')
-const fs = require('fs')
-const VueServerRender = require('vue-server-renderer')
-const serverRender = require('./server-render')
+const Router = require('koa-router');
+const path = require('path');
+const fs = require('fs');
+const VueServerRender = require('vue-server-renderer');
+const serverRender = require('./server-render');
 
-const pageRouter = new Router()
+const pageRouter = new Router();
 
 pageRouter.get('*', async (ctx) => {
   // const clientManifestResp = await axios.get(
@@ -46,15 +46,13 @@ pageRouter.get('*', async (ctx) => {
       inject: false,
       clientManifest
     }
-  )
+  );
 
   const template = fs.readFileSync(
     path.join(__dirname, '../server.template.ejs'),
     'utf-8'
-  )
+  );
   await serverRender(ctx, renderer, template)
-})
+});
 
-module.exports = pageRouter
-
-
+module.exports = pageRouter;

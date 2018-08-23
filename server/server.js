@@ -30,7 +30,7 @@ app.use(async (ctx, next) => {
   } else {
     await next();
   }
-})
+});
 
 let pageRouter;
 if (isDev) {

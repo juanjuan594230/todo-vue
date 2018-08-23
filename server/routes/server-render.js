@@ -22,15 +22,15 @@ module.exports = async (ctx, renderer, template) => {
   }
 }; */
 
-const ejs = require('ejs')
+const ejs = require('ejs');
 
 module.exports = async (ctx, renderer, template) => {
-  ctx.headers['Content-Type'] = 'text/html'
+  ctx.headers['Content-Type'] = 'text/html';
 
-  const context = { url: ctx.path }
+  const context = { url: ctx.path };
 
   try {
-    const appString = await renderer.renderToString(context)
+    const appString = await renderer.renderToString(context);
 
     // if (context.router.currentRoute.fullPath !== ctx.path) {
     //   return ctx.redirect(context.router.currentRoute.fullPath)
@@ -38,7 +38,7 @@ module.exports = async (ctx, renderer, template) => {
 
     const {
       title
-    } = context.meta.inject()
+    } = context.meta.inject();
 
     const html = ejs.render(template, {
       appString,
@@ -46,11 +46,11 @@ module.exports = async (ctx, renderer, template) => {
       scripts: context.renderScripts(),
       title: title.text(),
       initalState: context.renderState()
-    })
+    });
 
-    ctx.body = html
+    ctx.body = html;
   } catch (err) {
-    console.log('render error', err)
-    throw err
+    console.log('render error', err);
+    throw err;
   }
-}
+};
