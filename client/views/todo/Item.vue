@@ -1,12 +1,15 @@
 <template>
   <div :class="['todo-item', todo.completed ? 'completed' : '']">
-    <input type="checkbox" class="toggle" v-model="todo.completed">
+    <!-- vuex v-model 带来的困扰 使用除了mutation之外的东西修改了state状态-->
+    <!-- 使用事件 -->
+    <input type="checkbox" class="toggle" @click="clickCheckbox">
     <label>{{todo.content}}</label>
     <button class="destory" @click="deleteTodo"></button>
   </div>
 </template>
 
 <script>
+import {mapMutations} from 'vuex';
 export default {
   props: {
     todo: {
@@ -16,7 +19,18 @@ export default {
   },
   methods: {
     deleteTodo () {
-      this.$emit('del', this.todo.id);
+      this.delete({
+        id: this.todo.id
+      });
+    },
+    ...mapMutations({
+      delete: 'delete',
+      update: 'update'
+    }),
+    clickCheckbox () {
+      this.update({
+        id: this.todo.id
+      });
     }
   }
 };

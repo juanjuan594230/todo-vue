@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex';
 export default {
   props: {
     filter: {
@@ -19,8 +20,11 @@ export default {
   },
   methods: {
     clearAllCompleted () {
-      this.$emit('clear');
-    }
+      this.clearDone();
+    },
+    ...mapMutations({
+      clearDone: 'clearDone'
+    })
   },
   computed: {
     unFinishedToLength () {

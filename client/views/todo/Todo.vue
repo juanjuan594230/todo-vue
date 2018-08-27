@@ -13,87 +13,59 @@
       v-for="todo in filteredTodos"
       :todo="todo"
       :key="todo.id"
-      @del="deleteTodo"
       >
     </todo-item>
-    <helper :filter="filter" :todos="todos" @clear="clearAllCompleted"></helper>
-    <!-- 路由嵌套 -->
-    <!-- <router-view></router-view> -->
+    <helper :filter="filter" :todos="todos"></helper>
   </section>
 </template>
 
 <script>
 import TodoItem from './Item.vue';
 import Helper from './Helper.vue';
+import {mapState, mapGetters, mapMutations} from 'vuex';
 let id = 0;
 export default {
   name: 'Todo',
   metaInfo: {
     title: 'The Todo App'
   },
-  // 取代$route
-  // props: ['id'],
-  // z组件内导航守卫
-  // beforeRouteEnter 中拿不到this，因为组件还没有被创建，可以在next中传入一个回调获取组件vue实例
-  /* beforeRouteEnter (to, from, next) {
-    console.log('enter');
-    next();
-  },
-  // app/:id  app/123 -> app/456 被触发，组件复用，参数不同时被触发
-  beforeRouteUpdate (to, from, next) {
-    console.log('update');
-    next();
-  },
-  beforeRouteLeave (to, from, next) {
-    console.log('leave');
-    next();
-  }, */
   data () {
     return {
-      todos: [],
-      filter: 'all',
+      // todos: [],
+      // filter: 'all',
       states: ['all', 'actived', 'completed']
     };
   },
   methods: {
     addTodo (e) {
-      this.todos.unshift({
+      const todo = {
         id: id++,
         content: e.target.value.trim(),
         completed: false
+      };
+      this.add({
+        todo
       });
-      console.log(e.target.value);
       e.target.value = '';
     },
-    deleteTodo (id) {
-      const index = this.todos.findIndex((item) => {
-        return item.id === id;
-      });
-      this.todos.splice(index, 1);
-    },
-    clearAllCompleted () {
-      this.todos = this.todos.filter((todo) => {
-        return !todo.completed;
-      });
-    },
     handleTabChange (value) {
-      this.filter = value;
-    }
+      this.updateFilter({
+        filter: value
+      });
+    },
+    ...mapMutations({
+      // 将this.updateFilter 映射为 this.$store.commit('updateFilter')
+      updateFilter: 'updateFilter',
+      add: 'add'
+    })
   },
   components: {
     TodoItem,
     Helper
   },
   computed: {
-    filteredTodos () {
-      if (this.filter === 'all') {
-        return this.todos;
-      }
-      const completed = this.filter === 'completed';
-      return this.todos.filter((todo) => {
-        return completed === todo.completed;
-      });
-    }
+    ...mapState(['todos', 'filter']),
+    ...mapGetters(['filteredTodos'])
   }
 };
 </script>

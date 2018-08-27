@@ -3,14 +3,9 @@
     <div class="cover"></div>
     <div class="content">
       <todo-header></todo-header>
-      <!-- 使用路由命名，可以这样写router-link的to属性 -->
-      <!-- <router-link :to="{name: 'app'}">app</router-link>
-      <router-link to="/login">login</router-link> -->
-      <!-- <Todo></Todo> -->
       <transition name="fade">
         <router-view/>
       </transition>
-      <!-- <Notification content="test notify"></Notification> -->
       <button @click="notify"> add notify</button>
       <todo-footer></todo-footer>
     </div>
@@ -28,16 +23,6 @@ export default {
   components: {
     todoHeader,
     todoFooter
-  },
-  mounted () {
-    /* this.$notify({
-      content: 'test notify',
-      btn: '关闭'
-    });
-    this.$notify({
-      content: 'test test',
-      btn: '哈哈'
-    }); */
   },
   methods: {
     notify () {

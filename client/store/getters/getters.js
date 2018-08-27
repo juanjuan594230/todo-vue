@@ -1,15 +1,11 @@
 export default {
-  unTodo (state) {
-    return state.todos.filter((item) => {
-      return !item.done;
+  filteredTodos (state) {
+    if (state.filter === 'all') {
+      return state.todos;
+    }
+    const completed = state.filter === 'completed';
+    return state.todos.filter((todo) => {
+      return completed === todo.completed;
     });
   }
-  // 返回一个函数
-  // unTodo (state) {
-  //   return function (id) {
-  //     return state.todos.filter((item) => {
-  //       return item.id === id;
-  //     });
-  //   };
-  // }
 };
